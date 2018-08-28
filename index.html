@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <title>Location de Vélo'V</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Application permettant de louer un velo du reseau Velo'V dans la ville de LYON à l'aide d'une carte interactive">
+
+
+  <!--feuille de style -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
+  <!-- Police "Open Sans"  -->
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary" />
+</head>
+
+<body>
+
+  <section>
+    <!--Section de Bienvenue-->
+    <!--Logo+Titre de l'application-->
+    <header>
+      <img src="images/logo.png" alt="logo de Vélo'V">
+    </header>
+
+    <h1>APPLICATION POUR RESERVER UN VELO'V A LYON</h1>
+
+  </section>
+  <!--Fin de la section de Bienvenue-->
+
+  <section>
+    <!-- 2 - Utilisation de l'application -->
+    <header>
+      <h1>Comment l'utiliser ?</h1>
+    </header>
+
+
+    <div id="diaporama">
+      <button id="bouttonGauche"><span class="chevron left"></span></button>
+      <!-- Bouton de navigation droite -->
+
+      <!-- caroussel -->
+      <div id="caroussel">
+        <!--  image1 -->
+        <figure class="item">
+          <img src="images/etape1.png">
+          <figcaption>
+            1 - Selectionnez une station sur la carte interactive
+          </figcaption>
+        </figure>
+        <!-- fin image 1 -->
+
+        <!--  image2 -->
+        <figure class="item">
+          <img src="images/etape2.png">
+
+          <figcaption>
+            2 - Cliquez sur la station pour verifier les vélos disponibles et pour en reserver un.
+          </figcaption>
+        </figure>
+        <!-- fin image 2 -->
+
+        <!--  image3 -->
+        <figure class="item">
+          <img src="images/etape3.png">
+          <figcaption>
+            3 - Signez dans le cadre.Ensuite valider.
+          </figcaption>
+        </figure>
+        <!-- fin image 3 -->
+
+        <!--  image4 -->
+        <figure class="item">
+          <img src="images/etape4.png">
+          <figcaption>
+            4 - Votre réservation est validée pour une durée de 20 minutes.
+          </figcaption>
+        </figure>
+        <!-- fin image 4 -->
+
+        <!-- image5 -->
+        <figure class="item">
+          <img src="images/etape5.gif">
+          <figcaption>
+            5 - BONNE BALADE!
+          </figcaption>
+        </figure>
+        <!-- fin image 5  -->
+      </div>
+      <!-- fin caroussel -->
+
+      <button id="bouttonDroit"><span class="chevron right"></span></button>
+      <!-- Bouton de navigation gauche -->
+    </div>
+    <!-- fin Diaporama -->
+  </section>
+  <!-- fin Comment utiliser l'application  -->
+
+  <section>
+    <!-- 3 - Location de Vélo'V -->
+
+    <article>
+      <div id="carte"></div>
+      <!-- carte Google Maps -->
+      <div id="infoStation">
+        <!-- Cadre informations sur la station sélectionnée -->
+        <h1>Informations sur la station :</h1>
+        <!-- Informations sur la station sélectionnée -->
+        <ul id="listeInfo">
+          <li>Nom : <span id="nomStation"> <!-- Nom inséré en Javascript --> </span></li>
+          <li>Etat : <span id="etatStation"> <!-- État inséré en Javascript --> </span></li>
+          <li>Vélos disponibles : <span id="veloDispo"> <!-- Nombre inséré en Javascript --> </span></li>
+          <li>Points d'attache disponibles : <span id="attacheDispo"> <!-- Nombre inséré en Javascript --> </span></li>
+        </ul>
+        <!-- fin Informations sur la station sélectionnée -->
+        <div id="streetView"></div>
+        <p id="bouttonReservation"><button>Réserver</button></p>
+        <!-- Bouton de réservation -->
+        <p id="messageErreur" class="message">La réservation est impossible à cette station</p>
+        <!-- Message d'erreur en cas de réservation impossible -->
+      </div>
+      <!-- fin cadre informations sur la station sélectionnée -->
+    </article>
+
+    <!-- Cadre signature -->
+    <div id="containerCanvas">
+      <p>Vous étes sur le point de réserver un vélo à la station : <strong> <!-- Nom de la station inséré en Javascript --> </strong></p>
+      <canvas id="signature" width="380" height="200"></canvas>
+      <!-- Canvas -->
+      <!-- Bouton du canvas -->
+      <div id="boutonCanvas">
+        <p><button id="boutonValider">Valider</button></p>
+        <!-- Bouton Valider -->
+        <p><button id="boutonEffacer">Effacer</button></p>
+        <!-- Bouton Effacer -->
+      </div>
+    </div>
+    <!-- fin cadre signature -->
+  </section>
+  <!-- fin Location de Vélo'V -->
+
+  <!-- Message affiché lors d'une réservation -->
+  <div id="messageConfirmationLocation" class="message">
+    Votre réservation est enregistrée.
+  </div>
+  <!-- /Message affiché lors d'une réservation -->
+  <!-- Message affiché lors de l'annulation d'une réservation -->
+  <div id="annulationReservation" class="message">
+    Réservation annuler
+  </div>
+  <!-- /Message affiché lors de l'annulation d'une réservation -->
+
+  <section id="sectionLocation">
+    <!-- 4 - Message de location -->
+    <header>
+      <h1>Location en cours</h1>
+    </header>
+
+    <!-- Message affiché à la fin de la réservation -->
+    <div id="messageFinLocation">
+      Votre réservation à expirer !
+    </div>
+
+    <!-- Message affiché durant une réservation -->
+    <div id="messageLocation">
+      <p>Vous venez de réserver 1 vélo à la station : <strong> <!-- Nom de la station inséré en Javascript --> </strong><br> Votre réservation expirera dans : <br></p>
+
+      <div id="compteur"></div>
+      <!-- Div du compte à rebours -->
+      <p><button id="annulation">Annuler la réservation</button></p>
+      <!-- Bouton pour l'annulation de la réservation -->
+    </div>
+    <!-- fin message affiché durant une réservation -->
+
+  </section>
+
+
+
+  <!--Lien fichiers JavaScript-->
+  <script src="js/diaporama.js"></script>
+  <script src="js/maps.js"></script>
+  <script src="js/markerclusterer.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCn7MtScLp6hEMRLQGSPvn8LK7YOfRtgcM&callback=Maps.initMap" async defer></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/reservation.js"></script>
+  <script src="js/global.js"></script>
+
+</body>
+
+</html>
